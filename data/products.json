@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "title": "A Book",
+    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+    "description": "This is an awesome book!",
+    "price": "19"
+  },
+  {
+    "id": "2",
+    "title": "Shoes",
+    "imageUrl": "https://orbitvu.com/wp-content/uploads/2021/11/sport-shoe-white-background.jpg",
+    "description": "Lighter than air!",
+    "price": "50"
+  }
+]

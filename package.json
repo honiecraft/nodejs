@@ -1,0 +1,43 @@
+{
+  "name": "practice",
+  "version": "1.0.0",
+  "description": "Example",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "SET NODE_ENV=production&&SET MONGO_USER=pthao&&SET MONGO_PASSWORD=pthao&&SET MONGO_DEFAULT_DATABASE=shop&& node app.js",
+    "start-server": "node app.js",
+    "start:dev": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^3.1.1",
+    "crypto": "^1.0.1",
+    "csurf": "^1.11.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-handlebars": "3.0",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.2",
+    "google-auth-library": "^8.7.0",
+    "helmet": "^6.0.1",
+    "mongodb": "^4.11.0",
+    "mongoose": "^6.7.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.0.0-rc.1",
+    "nodemailer": "^6.8.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "pdfkit": "^0.13.0",
+    "pug": "^3.0.2",
+    "sequelize": "^6.25.5"
+  }
+}
