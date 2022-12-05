@@ -54,17 +54,18 @@ exports.postAddProduct = (req, res, next) => {
     });
   }
 
-  const imageUrl = image.path;
-
-  const product = new Product({
-    title: title,
-    price: price,
-    description: description,
-    imageUrl: imageUrl,
-    userId: req.user,
-  });
-  product
-    .save()
+  fileHelper
+    .uploadImage(image)
+    .then((result) => {
+      const product = new Product({
+        title: title,
+        price: price,
+        description: description,
+        imageUrl: result.secure_url,
+        userId: req.user,
+      });
+      product.save();
+    })
     .then((result) => {
       res.redirect("/admin/products");
     })
@@ -138,13 +139,17 @@ exports.postEditProduct = (req, res, next) => {
       product.title = updatedTitle;
       product.price = updatedPrice;
       product.description = updatedDesc;
+
       if (image) {
         fileHelper.deleteFile(product.imageUrl);
-        product.imageUrl = image.path;
-      }
-      return product.save().then((result) => {
-        res.redirect("/admin/products");
-      });
+        return fileHelper.uploadImage(image).then((result) => {
+          product.imageUrl = result.secure_url;
+          return product.save();
+        });
+      } else return product.save();
+    })
+    .then((result) => {
+      res.redirect("/admin/products");
     })
     .catch((err) => {
       const error = new Error(err);
@@ -173,6 +178,7 @@ exports.getProducts = (req, res, next) => {
 // Delete Product
 exports.deleteProduct = (req, res, next) => {
   const prodId = req.params.productId;
+
   Product.findById(prodId)
     .then((product) => {
       if (!product) {

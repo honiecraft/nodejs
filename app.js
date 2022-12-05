@@ -12,6 +12,7 @@ const helmet = require("helmet");
 const compression = require("compression");
 const morgan = require("morgan");
 const https = require("https");
+const cloudinary = require("cloudinary").v2;
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
@@ -21,6 +22,7 @@ require("dotenv").config();
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vez9z8m.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
 const app = express();
+
 const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: "sessions",
@@ -30,14 +32,22 @@ const csrfProtection = csrf();
 // const privateKey = fs.readFileSync("server.key");
 // const certificate = fs.readFileSync("server.cert");
 
-const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, new Date().getTime() + "-" + file.originalname);
-  },
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
+const memoryStorage = multer.memoryStorage();
+
+// const fileStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "images");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, new Date().getTime() + "-" + file.originalname);
+//   },
+// });
 
 const fileFilter = (req, file, cb) => {
   if (
@@ -61,16 +71,21 @@ const accessLogStream = fs.createWriteStream(
   { flag: "a" }
 );
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+  })
+);
 app.use(compression());
 app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+  multer({ storage: memoryStorage, fileFilter: fileFilter }).single("image")
 );
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/images", express.static(path.join(__dirname, "images")));
+// app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(
   session({
     secret: "my secret",
