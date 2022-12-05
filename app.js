@@ -16,6 +16,8 @@ const https = require("https");
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
+require("dotenv").config();
+
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vez9z8m.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
 const app = express();
