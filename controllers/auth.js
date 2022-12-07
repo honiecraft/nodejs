@@ -4,19 +4,11 @@ const sendgridTransport = require("nodemailer-sendgrid-transport");
 const { validationResult } = require("express-validator");
 const User = require("../models/user");
 
-// const transporter = nodemailer.createTransport({
-//   service: "gmail",
-//   auth: {
-//     user: "pthao.huynhn@gmail.com",
-//     pass: "tiogufcctdstuyko",
-//   },
-// });
-
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
       api_key:
-        "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",
+        "Your_api_key",
     },
   })
 );
@@ -152,7 +144,7 @@ exports.postSignup = (req, res, next) => {
       res.redirect("/login");
       // return transporter.sendMail({
       //   to: email,
-      //   from: "thaohnpfx17329@funix.edu.vn",
+      //   from: "your_email",
       //   subject: "Signup succeeded!",
       //   html: "<h1>You successfully signed up!</h1>",
       // });
