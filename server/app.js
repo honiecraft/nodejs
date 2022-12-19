@@ -33,7 +33,7 @@ const fileFilter = (req, file, cb) => {
 //middlewares
 app.use(
   cors({
-    origin: process.env.ORIGIN_URL.split(", "),
+    origin: [process.env.CLIENT_URL_1, process.env.CLIENT_URL_2],
     credentials: true,
     methods: "OPTIONS, GET, POST, PUT, PATCH, DELETE",
     allowedHeaders: "Origin, Content-Type, Authorization",
