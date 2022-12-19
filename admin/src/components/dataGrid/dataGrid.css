@@ -1,0 +1,33 @@
+.datatable {
+  padding: 10px;
+}
+
+.cellWithImg {
+  display: flex;
+  align-items: center;
+}
+.cellImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.cellAction {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.editButton,
+.deleteButton,
+.addNewButton {
+  text-transform: none !important;
+  border-radius: 0 !important;
+}
+
+a.link {
+  text-decoration: none !important;
+  border: none;
+}

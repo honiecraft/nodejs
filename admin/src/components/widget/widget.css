@@ -1,0 +1,45 @@
+.widget {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  padding: 20px;
+  border-right: 2px solid #f8f9fa;
+  height: 100px;
+}
+.wdleft,
+.wdright {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wdtitle {
+  font-size: 14px;
+  color: #b1b1b1;
+}
+
+.wdcounter {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.wdlink {
+  width: max-content;
+  font-size: 12px;
+  border-bottom: 1px solid gray;
+}
+.wdicon {
+  padding: 5px;
+  border-radius: 5px;
+  align-self: flex-end;
+  color: #b1b1b1;
+}
+
+.wdright > svg {
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.currUnit {
+  font-size: 15px;
+}

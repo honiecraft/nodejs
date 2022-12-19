@@ -1,0 +1,51 @@
+.active_user {
+  cursor: pointer !important;
+}
+
+.active_user:hover {
+  color: rgb(92, 92, 253) !important;
+  transition: all 0.5s ease-in-out;
+}
+
+.container {
+  width: auto;
+  margin: 0;
+}
+
+.btn-circle.btn-lg {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 2px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.chatContainer {
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  padding: 0;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.roomList:hover {
+  color: rgb(92, 92, 253) !important;
+  font-weight: bold;
+}
+
+.selected {
+  background-color: rgb(235, 235, 235);
+}
+
+.clientMsg {
+  background-color: #e4ffe4;
+  border-radius: 5px;
+}
+
+.adminMsg {
+  background-color: rgb(235, 235, 235);
+  border-radius: 5px;
+}

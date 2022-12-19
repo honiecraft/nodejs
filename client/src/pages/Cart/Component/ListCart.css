@@ -1,0 +1,4 @@
+input.inputNumberQty::-webkit-outer-spin-button,
+input.inputNumberQty::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

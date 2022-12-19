@@ -1,0 +1,80 @@
+.new {
+  display: flex;
+}
+.newContainer {
+  width: 100%;
+  flex: 6;
+  padding: 1rem;
+}
+
+.formTitle,
+.productForm {
+  padding: 10px;
+  margin: 20px;
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+}
+
+.formTitle {
+  background-color: white;
+}
+
+.formTitle > h1 {
+  font-size: 20px;
+}
+
+.selectRooms {
+  width: 100%;
+}
+
+select#rooms {
+  width: 100%;
+  padding: 10px;
+}
+
+.formInput {
+  width: 100%;
+  padding: 1.4rem 0.7rem 0 0.7rem;
+}
+
+.formInput > label,
+.selectRooms > label {
+  align-items: center;
+  color: gray;
+  gap: 10px;
+}
+
+.formInput > input,
+.formInput > textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #e6e6e6;
+}
+
+.formInput > input::placeholder,
+.formInput > textarea::placeholder {
+  color: #bebebe;
+}
+
+textarea#photos {
+  width: 100%;
+}
+
+button.productFormBtn {
+  margin: 16px;
+}
+
+.user-message {
+  margin: auto;
+  width: 90%;
+  border: 1px solid #4771fa;
+  padding: 0.5rem;
+  border-radius: 3px;
+  background: #b9c9ff;
+  text-align: center;
+}
+.user-message--error {
+  border-color: red;
+  background: rgb(255, 176, 176);
+  color: red;
+}
