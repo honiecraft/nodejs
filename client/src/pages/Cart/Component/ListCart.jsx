@@ -25,7 +25,7 @@ function ListCart(props) {
   const [cartItems, setCartItems] = useState();
   const [inputQty, setInputQty] = useState({});
   const [disIncBtn, setDisIncBtn] = useState({id: "", d: false});
-  const [disDecBtn, setDisDecBtn] = useState({id: "", d: true});
+  const [disDecBtn, setDisDecBtn] = useState({id: "", d: false});
 
   useEffect(() => {
     setCartItems([...listCart]);
