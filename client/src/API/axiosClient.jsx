@@ -20,7 +20,7 @@ axiosClient.interceptors.request.use((config) => {
   const tokenInfor = JSON.parse(sessionStorage.getItem("token"));
   if(user && !tokenInfor) {
     localStorage.removeItem("user");
-    window.location.href = "/login";
+    window.location.href = "/";
   };    
   const token = tokenInfor ? tokenInfor : null;
   config.headers.Authorization = token ? `Bearer ${token}` : ``;
