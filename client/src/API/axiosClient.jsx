@@ -16,7 +16,12 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use((config) => {
+  const user = JSON.parse(localStorage.getItem("user"));
   const tokenInfor = JSON.parse(sessionStorage.getItem("token"));
+  if(user && !tokenInfor) {
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  };    
   const token = tokenInfor ? tokenInfor : null;
   config.headers.Authorization = token ? `Bearer ${token}` : ``;
   return config;
