@@ -24,8 +24,9 @@ function ListCart(props) {
   const { listCart, onDeleteCart, onUpdateCount } = props;
   const [cartItems, setCartItems] = useState();
   const [inputQty, setInputQty] = useState({});
-  const [disIncBtn, setDisIncBtn] = useState(false);
-  const [disDecBtn, setDisDecBtn] = useState(false);
+  //const [disIncBtn, setDisIncBtn] = useState(false);
+  //const [disDecBtn, setDisDecBtn] = useState(false);
+  const [disBtn, setDisBtn] = useState({});
 
   useEffect(() => {
     setCartItems([...listCart]);
@@ -35,25 +36,24 @@ function ListCart(props) {
       const availableQty = i.productId.stockQty;
 
       setInputQty((prev) => ({ ...prev, [keyId]: Math.min(availableQty, quantity) }));
+      setdisBtn((prev) => ({ ...prev, [keyId]: {inc: false, dec: false} }));
     });
   }, [listCart]);
 
   const handleDisplayBtn = (inp, avl, prodId) => {
+    let tempBtn = {...disBtn}
     if (avl === 1 || avl === 0) {
-      setDisDecBtn(true);
-      setDisIncBtn(true);
-    } else if (inp >= avl) {             
-      setDisIncBtn(true);
-      setDisDecBtn(false);     
+      tempBtn[prodId] = {inc: true, dec: true};      
+    } else if (inp >= avl) {
+      tempBtn[prodId] = {inc: true, dec: false};         
     } else if (inp < avl) {
       if (inp > 1) {
-        setDisDecBtn(false);
-        setDisIncBtn(false);
+        tempBtn[prodId] = {inc: false, dec: false};        
       } else if (inp === 1) {
-        setDisDecBtn(true);
-        setDisIncBtn(false);
+        tempBtn[prodId] = {inc: false, dec: true};        
       }
     }
+    setdisBtn({...tempBtn});
   };
 
   const handleInputChange = (e) => {
@@ -85,39 +85,20 @@ function ListCart(props) {
     const availableQty = listCart[productIndex].productId.stockQty;
     let updateCart = [...listCart];
 
-    //handleDisplayBtn(value, availableQty, prodId);
-
-    if (availableQty === 1 || availableQty === 0) {
-      setDisDecBtn(true);
-      setDisIncBtn(true);
-    }    
+    handleDisplayBtn(value, availableQty, prodId);
    
     // If input value > available
     else if (availableQty <= value) {
       // set inputQty equal availableQty
       setInputQty((prev) => ({ ...prev, [prodId]: availableQty }));
       updateCart[productIndex].quantity = availableQty;
-      
-      // Handle Display Btn
-      setDisIncBtn(true);
-      setDisDecBtn(false);     
-
+     
       // Alert not enough qty
       alertify.set("notifier", "position", "bottom-left");
       alertify.error(`Chỉ còn ${availableQty} sản phẩm.`);
       onUpdateCount(prodId, availableQty, updateCart);
     } else {            
-      // Else update with input value
-
-      // Handle Display Btn
-      if (value > 1) {
-        setDisDecBtn(false);
-        setDisIncBtn(false);
-      } else if (value === 1) {
-        setDisDecBtn(true);
-        setDisIncBtn(false);
-      }
-      
+      // Else update with input value     
       // If input value not change compare with previous state
       // do nothing
       if (inputQty[prodId] === value) {
@@ -238,7 +219,7 @@ function ListCart(props) {
                       onClick={() =>
                         handlerDown(item.productId._id, item.quantity)
                       }
-                      disabled={disDecBtn ? disDecBtn : null}
+                      disabled={disBtn[item.productId._id].dec ? disBtn[item.productId._id].dec : null}
                     >
                       <i className="fas fa-caret-left"></i>
                     </button>
@@ -265,7 +246,7 @@ function ListCart(props) {
                       onClick={() =>
                         handlerUp(item.productId._id, item.quantity)
                       }
-                      disabled={disDecBtn ? disDecBtn : null}
+                      disabled={disBtn[item.productId._id].inc ? disBtn[item.productId._id].inc : null}
                     >
                       <i className="fas fa-caret-right"></i>
                     </button>
