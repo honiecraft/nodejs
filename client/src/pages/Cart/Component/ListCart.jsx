@@ -24,8 +24,8 @@ function ListCart(props) {
   const { listCart, onDeleteCart, onUpdateCount } = props;
   const [cartItems, setCartItems] = useState();
   const [inputQty, setInputQty] = useState({});
-  const [disIncBtn, setDisIncBtn] = useState({id: "", d: false});
-  const [disDecBtn, setDisDecBtn] = useState({id: "", d: false});
+  const [disIncBtn, setDisIncBtn] = useState(false);
+  const [disDecBtn, setDisDecBtn] = useState(false);
 
   useEffect(() => {
     setCartItems([...listCart]);
@@ -40,20 +40,18 @@ function ListCart(props) {
 
   const handleDisplayBtn = (inp, avl, prodId) => {
     if (avl === 1 || avl === 0) {
-      setDisDecBtn({id: prodId, d: true});
-      setDisIncBtn({id: prodId, d: true});
-    };
-    
-    if (inp >= avl) {             
-      setDisIncBtn({id: prodId, d: true});
-      setDisDecBtn({id: prodId, d: false});     
+      setDisDecBtn(true);
+      setDisIncBtn(true);
+    } else if (inp >= avl) {             
+      setDisIncBtn(true);
+      setDisDecBtn(false);     
     } else if (inp < avl) {
       if (inp > 1) {
-        setDisDecBtn({id: prodId, d: false});
-        setDisIncBtn({id: prodId, d: false});
+        setDisDecBtn(false);
+        setDisIncBtn(false);
       } else if (inp === 1) {
-        setDisDecBtn({id: prodId, d: true});
-        setDisIncBtn({id: prodId, d: false});
+        setDisDecBtn(true);
+        setDisIncBtn(false);
       }
     }
   };
