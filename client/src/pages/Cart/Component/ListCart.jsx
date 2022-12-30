@@ -220,7 +220,7 @@ function ListCart(props) {
                       onClick={() =>
                         handlerDown(item.productId._id, item.quantity)
                       }
-                      disabled={disDecBtn.id === item.productId._id ? disDecBtn.d : null}
+                      disabled={disDecBtn ? disDecBtn : null}
                     >
                       <i className="fas fa-caret-left"></i>
                     </button>
@@ -247,7 +247,7 @@ function ListCart(props) {
                       onClick={() =>
                         handlerUp(item.productId._id, item.quantity)
                       }
-                      disabled={disDecBtn.id === item.productId._id ? disDecBtn.d : null}
+                      disabled={disDecBtn ? disDecBtn : null}
                     >
                       <i className="fas fa-caret-right"></i>
                     </button>
