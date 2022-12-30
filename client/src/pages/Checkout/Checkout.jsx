@@ -22,7 +22,6 @@ import convertMoney from "../../util/convertMoney";
 import "./Checkout.css";
 
 import io from "socket.io-client";
-const socket = io(process.env.REACT_APP_SERVER_URL);
 
 function Checkout(props) {
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ function Checkout(props) {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io("http://localhost:5000");
+    socket.current = io(process.env.REACT_APP_SERVER_URL);
     socket.current.on("post_order", (data) => {
       setArrivalOrder(data);
     });
