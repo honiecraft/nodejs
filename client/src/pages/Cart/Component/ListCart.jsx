@@ -32,23 +32,22 @@ function ListCart(props) {
     listCart.forEach((i) => {
       const keyId = i.productId._id;
       const quantity = i.quantity;
+      const availableQty = i.productId.stockQty;
 
-      setInputQty((prev) => ({ ...prev, [keyId]: quantity }));
+      setInputQty((prev) => ({ ...prev, [keyId]: Math.min(availableQty, quantity) }));
     });
   }, [listCart]);
 
   const handleDisplayBtn = (inp, avl, prodId) => {
-    if (inp >= avl) {
-      if (avl !== 1) {        
-        setDisIncBtn({id: prodId, d: true});
-        setDisDecBtn({id: prodId, d: false});
-      } else if (avl === 1 || avl === 0) {
-        setDisDecBtn({id: prodId, d: true});
-        setDisIncBtn({id: prodId, d: true});
-      }
-    }
-
-    if (inp < avl) {
+    if (avl === 1 || avl === 0) {
+      setDisDecBtn({id: prodId, d: true});
+      setDisIncBtn({id: prodId, d: true});
+    };
+    
+    if (inp >= avl) {             
+      setDisIncBtn({id: prodId, d: true});
+      setDisDecBtn({id: prodId, d: false});     
+    } else if (inp < avl) {
       if (inp > 1) {
         setDisDecBtn({id: prodId, d: false});
         setDisIncBtn({id: prodId, d: false});
@@ -128,7 +127,7 @@ function ListCart(props) {
     onDeleteCart(getProduct, updateCart);
   };
 
-  //Increase quantity
+  //Decrease quantity
   const handlerDown = (getIdProduct, getCount) => {
     if (!onUpdateCount) {
       return;
@@ -139,7 +138,7 @@ function ListCart(props) {
     handleChange(getIdProduct, updateCount);
   };
 
-  //Decrease quantity
+  //Increase quantity
   const handlerUp = (getIdProduct, getCount) => {
     if (!onUpdateCount) {
       return;
