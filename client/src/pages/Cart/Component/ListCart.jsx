@@ -36,7 +36,7 @@ function ListCart(props) {
       const availableQty = i.productId.stockQty;
 
       setInputQty((prev) => ({ ...prev, [keyId]: Math.min(availableQty, quantity) }));
-      setdisBtn((prev) => ({ ...prev, [keyId]: {inc: false, dec: false} }));
+      setDisBtn((prev) => ({ ...prev, [keyId]: {inc: false, dec: false} }));
     });
   }, [listCart]);
 
