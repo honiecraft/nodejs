@@ -24,8 +24,8 @@ function ListCart(props) {
   const { listCart, onDeleteCart, onUpdateCount } = props;
   const [cartItems, setCartItems] = useState();
   const [inputQty, setInputQty] = useState({});
-  const [disIncBtn, setDisIncBtn] = useState(false);
-  const [disDecBtn, setDisDecBtn] = useState(false);
+  const [disIncBtn, setDisIncBtn] = useState({id: "", d: false});
+  const [disDecBtn, setDisDecBtn] = useState({id: "", d: true});
 
   useEffect(() => {
     setCartItems([...listCart]);
@@ -37,24 +37,24 @@ function ListCart(props) {
     });
   }, [listCart]);
 
-  const handleDisplayBtn = (inp, avl) => {
+  const handleDisplayBtn = (inp, avl, prodId) => {
     if (inp >= avl) {
-      if (avl !== 1) {
-        setDisIncBtn(true);
-        setDisDecBtn(false);
+      if (avl !== 1) {        
+        setDisIncBtn({id: prodId, d: true});
+        setDisDecBtn({id: prodId, d: false});
       } else if (avl === 1 || avl === 0) {
-        setDisDecBtn(true);
-        setDisIncBtn(true);
+        setDisDecBtn({id: prodId, d: true});
+        setDisIncBtn({id: prodId, d: true});
       }
     }
 
     if (inp < avl) {
       if (inp > 1) {
-        setDisDecBtn(false);
-        setDisIncBtn(false);
+        setDisDecBtn({id: prodId, d: false});
+        setDisIncBtn({id: prodId, d: false});
       } else if (inp === 1) {
-        setDisDecBtn(true);
-        setDisIncBtn(false);
+        setDisDecBtn({id: prodId, d: true});
+        setDisIncBtn({id: prodId, d: false});
       }
     }
   };
@@ -88,7 +88,7 @@ function ListCart(props) {
     const availableQty = listCart[productIndex].productId.stockQty;
     let updateCart = [...listCart];
 
-    handleDisplayBtn(value, availableQty);
+    handleDisplayBtn(value, availableQty, prodId);
 
     // If input value > available
     if (availableQty < value) {
@@ -223,7 +223,7 @@ function ListCart(props) {
                       onClick={() =>
                         handlerDown(item.productId._id, item.quantity)
                       }
-                      disabled={disDecBtn ? disDecBtn : null}
+                      disabled={disDecBtn.id === item.productId._id ? disDecBtn.d : null}
                     >
                       <i className="fas fa-caret-left"></i>
                     </button>
@@ -250,7 +250,7 @@ function ListCart(props) {
                       onClick={() =>
                         handlerUp(item.productId._id, item.quantity)
                       }
-                      disabled={disIncBtn ? disIncBtn : null}
+                      disabled={disDecBtn.id === item.productId._id ? disDecBtn.d : null}
                     >
                       <i className="fas fa-caret-right"></i>
                     </button>
