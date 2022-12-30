@@ -88,7 +88,7 @@ function ListCart(props) {
     handleDisplayBtn(value, availableQty, prodId);
    
     // If input value > available
-    else if (availableQty <= value) {
+    if (availableQty <= value) {
       // set inputQty equal availableQty
       setInputQty((prev) => ({ ...prev, [prodId]: availableQty }));
       updateCart[productIndex].quantity = availableQty;
