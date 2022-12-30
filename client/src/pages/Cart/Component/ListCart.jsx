@@ -53,7 +53,7 @@ function ListCart(props) {
         tempBtn[prodId] = {inc: false, dec: true};        
       }
     }
-    setdisBtn({...tempBtn});
+    setDisBtn({...tempBtn});
   };
 
   const handleInputChange = (e) => {
