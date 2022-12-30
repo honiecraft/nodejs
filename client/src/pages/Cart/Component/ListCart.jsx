@@ -85,21 +85,39 @@ function ListCart(props) {
     const availableQty = listCart[productIndex].productId.stockQty;
     let updateCart = [...listCart];
 
-    handleDisplayBtn(value, availableQty, prodId);
+    //handleDisplayBtn(value, availableQty, prodId);
 
+    if (availableQty === 1 || availableQty === 0) {
+      setDisDecBtn(true);
+      setDisIncBtn(true);
+    }    
+   
     // If input value > available
-    if (availableQty < value) {
+    else if (availableQty <= value) {
       // set inputQty equal availableQty
       setInputQty((prev) => ({ ...prev, [prodId]: availableQty }));
       updateCart[productIndex].quantity = availableQty;
+      
+      // Handle Display Btn
+      setDisIncBtn(true);
+      setDisDecBtn(false);     
 
       // Alert not enough qty
       alertify.set("notifier", "position", "bottom-left");
       alertify.error(`Chỉ còn ${availableQty} sản phẩm.`);
       onUpdateCount(prodId, availableQty, updateCart);
-    } else {
+    } else {            
       // Else update with input value
 
+      // Handle Display Btn
+      if (value > 1) {
+        setDisDecBtn(false);
+        setDisIncBtn(false);
+      } else if (value === 1) {
+        setDisDecBtn(true);
+        setDisIncBtn(false);
+      }
+      
       // If input value not change compare with previous state
       // do nothing
       if (inputQty[prodId] === value) {
@@ -130,7 +148,7 @@ function ListCart(props) {
     if (!onUpdateCount) {
       return;
     }
-
+    
     //Trước khi trả dữ liệu về component cha thì phải thay đổi biến count
     const updateCount = parseInt(getCount) - 1;
     handleChange(getIdProduct, updateCount);
